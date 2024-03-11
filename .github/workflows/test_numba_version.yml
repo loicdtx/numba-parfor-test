@@ -6,6 +6,7 @@ jobs:
   test:
     name: Test on Python ${{ matrix.python-version }} and Numba ${{ matrix.numba-version }}
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
         python-version: ['3.10', '3.11', '3.12']
