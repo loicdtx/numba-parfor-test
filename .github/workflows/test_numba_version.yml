@@ -1,0 +1,28 @@
+name: Python Numba Test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Test on Python ${{ matrix.python-version }} and Numba ${{ matrix.numba-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.10, 3.11, 3.12]
+        numba-version: ['0.58.1', '0.59']
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install numpy scikit-learn numba==${{ matrix.numba-version }}
+    - name: Run test
+      run: |
+        # Your test command here, e.g., a Python script running your test
+        python debug_numba.py
+
+
